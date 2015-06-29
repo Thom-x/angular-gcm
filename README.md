@@ -1,5 +1,7 @@
 ## Angular Google Cloud Messaging
 
+Angular-gcm is a simple directive allowing users to subscribe to Google Cloud Messaging API by clicking a button.
+
 ## Setup
 
 ### Obtaining GCM Keys
