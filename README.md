@@ -24,10 +24,10 @@ bower install angular-gcm
 
 #### Edit/Place files
 
- - Place `manifest.json` on your root domain and change the `gcm_sender_id` by the id of your project:
+ - Place `manifest.json` on your root domain and change the `gcm_sender_id` by the number of your project:
 
 ```javascript
-  "gcm_sender_id": "my_project_id",
+  "gcm_sender_id": "my_project_number",
 ```
 
  - Add `<link rel="manifest" href="manifest.json">` on the header of your index.html :
@@ -48,14 +48,14 @@ bower install angular-gcm
 In your template :
 
 ```html
-<gcm callback="gcmSend" gcmapikey="'your_gcm_client_key'"></gcm>
+<gcm callback="gcmSend" gcmapikey="'your_gcm_browser_key'"></gcm>
 ```
 
 or
 ```html
 <!-- activate = button text to enable notifications -->
 <!-- disable = button text to disable notifications -->
-<gcm callback="gcmSend" activate="'Enable notif'" disable="'Disable notif'" gcmapikey="'your_gcm_client_key'"></gcm>
+<gcm callback="gcmSend" activate="'Enable notif'" disable="'Disable notif'" gcmapikey="'your_gcm_browser_key'"></gcm>
 ```
 In your controller :
 
@@ -72,7 +72,7 @@ In your controller :
 On the server side you must call the Google Cloud Messaging API using the POSTed subscriber token to send a notification :
 
 ```javascript
-curl --header "Authorization: key=your_server_key"
+curl --header "Authorization: key=your_gcm_server_key"
 --header Content-Type:"application/json"
 https://android.googleapis.com/gcm/send
 -d "{\"registration_ids\":[\"subscriber_token\"]}"
