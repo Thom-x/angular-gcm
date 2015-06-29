@@ -48,7 +48,14 @@ bower install angular-gcm
 In your template :
 
 ```html
-<gcm callback="gcmSend" gcmapikey="your_gcm_client_key"></gcm>
+<gcm callback="gcmSend" gcmapikey="'your_gcm_client_key'"></gcm>
+```
+
+or
+```html
+<!-- activate = button text to enable notifications -->
+<!-- disable = button text to disable notifications -->
+<gcm callback="gcmSend" activate="'Enable notif'" disable="'Disable notif'" gcmapikey="'your_gcm_client_key'"></gcm>
 ```
 In your controller :
 

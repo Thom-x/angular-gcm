@@ -6,17 +6,22 @@
         restrict: 'E',
         scope: {
           callback: '=',
+          activate: '=',
+          disable: '=',
           gcmAPIKey: '=gcmapikey'
         },
-        template: '<button class="btn btn-block btn-primary" id="gcm-button"></span></button>',
+        template: '<button class="btn btn-block btn-primary" id="gcm-button"></button>',
         link: function(scope, element, attr) {
+          var activate = scope.activate || 'Enable notifications';
+          var disable = scope.disable || 'Disable notifications';
           var pushButton = element.find('button')[0];
-          pushButton.textContent = 'Activer les notifications';
+          pushButton.textContent = activate;
 
           window.GoogleSamples = window.GoogleSamples || {};
           window.GoogleSamples.Config = window.GoogleSamples.Config || {
             gcmAPIKey: scope.gcmAPIKey
           };
+
 
           var API_KEY = scope.gcmAPIKey;
           var GCM_ENDPOINT = 'https://android.googleapis.com/gcm/send';
@@ -70,7 +75,7 @@
                     // to allow the user to subscribe to push
                     isPushEnabled = false;
                     pushButton.disabled = false;
-                    pushButton.textContent = 'Activer les notifications';
+                    pushButton.textContent = activate;
                     return;
                   }
 
@@ -81,7 +86,7 @@
                   // We have a subcription, so call unsubscribe on it
                   pushSubscription.unsubscribe().then(function(successful) {
                     pushButton.disabled = false;
-                    pushButton.textContent = 'Activer les notifications';
+                    pushButton.textContent = activate;
                     isPushEnabled = false;
                   }).catch(function(e) {
                     // We failed to unsubscribe, this can lead to
@@ -111,7 +116,7 @@
                 .then(function(subscription) {
                   // The subscription was successful
                   isPushEnabled = true;
-                  pushButton.textContent = 'Désactiver les notifications';
+                  pushButton.textContent = disable;
                   pushButton.disabled = false;
 
                   // TODO: Send the subscription subscription.endpoint
@@ -182,7 +187,7 @@
 
                   // Set your UI to show they have subscribed for
                   // push messages
-                  pushButton.textContent = 'Désactiver les notifications';
+                  pushButton.textContent = disable;
                   isPushEnabled = true;
                 })
                 .catch(function(err) {
